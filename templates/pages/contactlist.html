@@ -1,0 +1,144 @@
+{% extends "pages/base2.html" %}
+{% block title %} Home {% endblock %}
+{% block body %}
+<head> <script>
+    function addPlusSign(input) {
+      if (input.value.startsWith('966')) {
+        input.value = '+' + input.value;
+      }
+    }
+    </script></head>
+<div class="accountsec">
+    <div class="setinfo">
+       
+     <div class="acctt">
+        <div class="d-flex align-items-center justify-content-between">
+            <p class="title">Contacts</p>
+            <div class="addcontbtn">
+              <button type="button" id="btnct" class="btn download-btn fw-bold" 
+              data-toggle="modal" data-target="#mymodal"><span class="me-2"><i class="fa fa-user-plus"></i></span> Add Contact</button>
+            </div>
+        </div>
+         
+     </div>    
+         <!--Adding the flash messages -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+ 
+     <div class="alert alert-success alert-dismissable" id="conalert" role="alert">
+         <button type="button" class="close" data-dismiss="alert" aria-label="close">
+           <span aria-hidden="true">x</span>
+         </button>
+            {{message}}
+     </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+    <div class="fixed-table-head">
+        
+        <div>Name</div>
+        <div>email</div>
+        <div></div>
+    </div>
+    <div class="table-container contact-container">
+    <!--Creating the table-->
+     <table class="table table-hover text-center contact-table" id="myTable" style="table-layout: fixed !important;border-radius: 10px !important;">
+         <tr class="d-none">
+             <th>ID</th>
+             <th>Name</th>
+             <th>email</th>
+             <th id="actionth">Action</th>
+         </tr>          
+                     {% for contact in data  %}
+         <tr>
+             
+             <td>{{contact.name}}</td>
+             <td>{{contact.email}}</td>
+             <td>
+                 <a href="/delete/{{contact.id}}" class="text-danger" id="" onclick="return confirm('Are You Sure you want to Delete?')"><i class="fa-solid fa-trash"></i></a>
+             </td>
+         </tr>
+          {% endfor%}
+     </table>
+    </div>
+
+ <!--Model Add employee-->
+ <div id="mymodal" class="modal fade" role="dialog">
+     <div class="modal-dialog modal-dialog-centered">
+         <div class="modal-content" style="background-color: rgba(0,0,0,0.8);border-radius: 20px;">
+             <div class="modal-header">
+                 <h3 class="modal-title text-light">Add Contact</h3>
+             </div>
+ 
+             <div class="modal-body">
+                 <form action="{{url_for('insert')}}" method="POST">
+                     <div class="form-group">
+                         <label style="font-size: 20px;color: #eee;">Name :</label>
+                         <input type="text" class="form-control" style="border-radius: 15px;" name="name" 
+                         placeholder="Enter name" autofocus pattern="[a-zA-Z]*" required>
+                     </div>
+
+                     <div class="form-group">
+                         <label style="font-size: 20px;color: #eee;">Email :</label>
+                         <input type="email" class="form-control" name="email" style="border-radius: 15px;"  placeholder="example@gmail.com"
+                             required>
+                           <!-- ^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.com$ -->
+                           
+
+                     </div>
+ 
+                     <div class="" style="margin-top: 3rem;margin-bottom: 1rem;">
+                         <button  class="btn download-btn me-2 fw-bold" style="border-radius: 15px;" type="submit">Add Contact</button>
+                         <button type="button" class="btn btn-danger fw-bold" style="border-radius: 15px;" data-dismiss="modal">Close</button>
+                     </div>
+                 </form>
+             </div>
+ 
+           <!--  <div class="modal-footer">
+                 
+             </div>  -->
+         </div>
+     </div>
+ </div>
+</div>
+  
+  <div class="setcont">
+     <img id="pageicon" src="static\img\blur.png" width="100px">
+     
+     <div class="setlist">
+         <ul class="setword">
+             <i class="fa-regular fa-user" id="profileicon"></i> <a href="{{ url_for('myprofile') }}">Profile </a>
+         </ul>
+    
+     </div>
+
+     <div class="setlist">
+         <ul class="setword">
+             <i class="fa-regular fa-address-book" id="profileicon"></i> <a href="{{ url_for('contactlist') }}">Contacts</a>
+         </ul>
+     </div>
+     <div class="setlist">
+        <ul class="setword">
+           <i class="fa-solid fa-camera" id="profileicon"></i> <a href="{{ url_for('cameramenu') }}">Cameras </a>
+        </ul>
+       </div>
+
+
+
+
+     <div class="setlist">
+       <ul class="setword">
+           <i class="fa-solid fa-right-from-bracket" id="profileicon"></i> <a href="{{ url_for('logout') }}">Logout</a>
+       </ul>
+   </div>
+
+
+
+
+  </div>
+ </div>
+
+
+
+{% endblock %}

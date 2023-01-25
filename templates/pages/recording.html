@@ -1,0 +1,40 @@
+{% extends "pages/base2.html" %} 
+{% block title %}main page{% endblock %} 
+{% block body %}
+  <div class="accountsec" >
+    
+    <div class="whole">
+      <div class="acctt">
+        <p class="title">Recordings</p>
+      </div>
+      <div class="fixed-table-head">
+        <div>Video Name</div>
+        <div>Date</div>
+        <div>Download Link</div>
+      </div>
+
+      <div class="table-container">
+        
+        <table class ="table table-hover recTable"   id="recid">
+          <thead>
+            <tr>
+              <th>Video Name</th>
+              <th>Date</th>
+              <th>Download Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for video in videos %}
+              <tr>
+               <td>{{video[14:]}}</td>
+               <td>{{video[18:28]}}</td>
+                <td><a class="btn download-btn" href="{{ video }}"  download>Download Video</a>
+                </td>
+              </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock body %}
